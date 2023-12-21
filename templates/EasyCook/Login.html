@@ -1,0 +1,71 @@
+{% extends 'EasyCook/Base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+{% load i18n %}
+
+    <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-xl-10">
+            <div class="card rounded-3 text-black">
+                <div class="row g-0">
+                    <div class="col-lg-6">
+                        <div class="card-body p-md-4 mx-md-4">
+                            <div class="text-center">
+                                <img src="https://static.vecteezy.com/ti/vecteur-libre/p3/14882558-logo-fourchette-et-cuillere-vectoriel.jpg"
+                                    style="width: 185px;" alt="logo">
+                                <h4 class="mt-1 mb-5 pb-1">We are EasyCook</h4>
+                            </div>
+                            <p>Login please.</p>
+                            <form method="post" action="{% url 'EasyCook:Login' %}">
+                                {% csrf_token %}
+
+                                <div class="form-outline mb-4">
+                                    {{ form.username.label_tag }}
+                                    <input type="text" id="form2Example11" class="form-control"
+                                        placeholder="username" name="username" />
+                                </div>
+
+                                <div class="form-outline mb-4">
+                                    {{ form.password.label_tag }}
+                                    <input type="password" id="form2Example22" class="form-control"
+                                        name="password" />
+                                </div>
+
+                                <div class="form-group">
+                                    {{ form.captcha }}
+                                </div>
+
+                                <div class="text-center pt-1 mb-5 pb-1">
+                                    <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"
+                                        type="submit" id="submitBtn">Log in</button>
+                                </div>
+
+                            </form>
+                            <p class="text-center">Don't have an account? <a href="{% url 'EasyCook:Register' %}">Register here</a></p>
+
+                            {% if message %}
+                                <p>{{ message }}</p>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
+                        <div class="text-dark px-3 py-4 p-md-5 mx-md-4">
+                            <h4 class="mb-4">Revolutionizing the way you cook</h4>
+                            <p class="small mb-0">
+                                {% trans "EasyCook révolutionne la cuisine en offrant une expérience unique. Des recettes" %}
+                                {% trans "personnalisées en fonction des ingrédients que vous avez à disposition. Plus besoin" %}
+                                {% trans "de planifier, notre innovation culinaire s'adapte à votre frigo, transformant chaque" %}
+                                {% trans "repas en une aventure gastronomique sur mesure" %}.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+

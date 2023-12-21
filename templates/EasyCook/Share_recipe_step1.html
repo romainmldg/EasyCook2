@@ -1,0 +1,56 @@
+{% extends 'EasyCook/Base.html' %}
+{% block title %}Partager votre recette - Étape 1{% endblock %}
+{% load static %}
+{% block content %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{% trans "Partager votre recette - Étape 1" %}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.7.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container-fluid px-1 py-5 mx-auto">
+        <div class="row d-flex justify-content-center">
+            <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
+                <h1>{% trans "Partager votre recette - Étape 1" %}</h1>
+                <form method="post" enctype="multipart/form-data" class="card form-card">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    {{ form2.as_p }}
+
+                    <div>
+                        <label for="personnes">{% trans "Pour combien de personnes :" %}</label>
+                        <select id="personnes" name="personnes">
+                            <option value="1">{% trans "1 personne" %}</option>
+                            <option value="2">{% trans "2 personnes" %}</option>
+                            <option value="3">{% trans "3 personnes" %}</option>
+                            <option value="4">{% trans "4 personnes" %}</option>
+                            <option value="5">{% trans "5 personnes" %}</option>
+                            <option value="6">{% trans "6 personnes" %}</option>
+                            <option value="7">{% trans "7 personnes" %}</option>
+                            <option value="8">{% trans "8 personnes" %}</option>
+                            <option value="9">{% trans "9 personnes" %}</option>
+                            <option value="10">{% trans "10 personnes" %}</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-block btn-primary">{% trans "Valider" %}</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+{% if messages %}
+  <div id="notification-container" class="position-fixed modal-fullscreen-lg-down end-0 p-3">
+    {% for message in messages %}
+      <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+{% endblock %}

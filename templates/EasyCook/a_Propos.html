@@ -1,0 +1,151 @@
+{% extends 'EasyCook/Base.html' %}
+
+{% block title %}à_Propos{% endblock %}
+{% load static %}
+{% block content %}
+{% load i18n %}
+
+<head>
+    <title>{% trans "À propos de nous" %}</title>
+    <link rel="stylesheet" href="css_a_propos.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% trans "À propos de nous" %}</title>
+    <link rel="stylesheet" href="css_a_propos.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        header {
+            background-color: #FAC898; /* Orange color */
+            color: white;
+            text-align: center;
+            padding: 1em;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        .team {
+            display: flex;
+            justify-content: space-around;
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .team li {
+            text-align: center;
+            margin: 10px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            width: 200px;
+            background-color: lightgray;
+        }
+
+        .team h2, .team p {
+            color: black;
+        }
+
+        .team img {
+            max-width: 100%;
+            max-height: 150px;
+            border-radius: 50%;
+        }
+
+        .about {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .text-block {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: justify;
+        }
+
+        .team ul {
+            display: flex;
+            justify-content: space-around;
+            list-style-type: none;
+            padding: 0;
+            flex-wrap: wrap;
+        }
+
+        .orange-text {
+            color: black;
+        }
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="orange-text" >{% trans "À propos de nous" %}</h1>
+    </header>
+    <main>
+        <section class="team">
+            <ul>
+                <li>
+                    <img src="{%  static '/EasyCook/Photos_de_nous/Simon.jpg' %}" style="max-width: 300px; max-height: 200px">
+                    <h2>Fautré Simon</h2>
+                    <p>{% trans "Interprète" %}</p>
+                </li>
+                <li>
+                    <img src="{% static '/EasyCook/Photos_de_nous/Romain.jpg' %}" style="max-width: 300px; max-height: 200px" >
+                    <h2>Maldague Romain</h2>
+                    <p>{% trans "Développeur web" %}</p>
+                </li>
+                <li>
+                    <img src="{% static '/EasyCook/Photos_de_nous/Zora.jpg' %}" style="max-width: 300px; max-height: 200px">
+                    <h2>Gilet Zora</h2>
+                    <p>{% trans "Conceptrice d'interface utilisateur" %}</p>
+                </li>
+                <li>
+                    <img src="{% static '/EasyCook/Photos_de_nous/Saniya.jpg'%} "style="max-width: 300px; max-height: 200px">
+                    <h2>Rahimi Saniya</h2>
+                    <p>{% trans "Administratrice du site web" %}</p>
+                </li>
+                <li>
+                    <img src="{% static '/EasyCook/Photos_de_nous/sophie.jpg' %}" style="max-width: 300px; max-height: 200px">
+                    <h2>Thirion Sophie</h2>
+                    <p>{% trans "Responsable du contenu" %}</p>
+                </li>
+            </ul>
+        </section>
+        <section class="about">
+            <div class="text-block">
+                <p>
+                    {% trans "Nous sommes cinq étudiants dynamiques et enthousiastes de l'université de Namur," %}
+                    {% trans "réunis par une passion commmune : la gastronomie. Animés par le désir de partager" %}
+                    {% trans "notre amour de la nourriture avec le monde, nous avons entrepris un projet passionant" %}
+                    {% trans "de création d'un site web dédié à la cuisine. Forts de notre diversité d'expériences et" %}
+                    {% trans "de compétences , nous travaillons main dans la main pour concevoir un espace en ligne" %}
+                    {% trans "qui célèbre la diversité des saveurs, propose des recettes inspirantes et met en lumière" %}
+                    {% trans "les plaisirs de la table. Notre objectif est de créer une communauté gourmande et" %}
+                    {% trans "collaborative où la cuisine devient une aventure partagée, et nous sommes impatients" %}
+                    {% trans "de vous emmener avec nous dans ce voyage culinaire." %}
+                </p>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="my-5 pt-5 text-muted text-center text-small">
+        <h1 class="orange-text">{% trans "Nos réseaux : " %}</h1>
+        <p class="orange-text"> Instagram : @EasyCook_BE <br>
+            Facebook : EasyCook_BE <br>
+            <h1 class="orange-text">{% trans "Nous contacter :" %} </h1>
+            Mail : EasyCookforuser@gmail.com <br>
+            GSM : +32492752318 </p>
+        <p class="mb-1 orange-text">&copy; 2023 - EasyCook </p>
+    </footer>
+</body>
+</html>
+
+{% endblock %}

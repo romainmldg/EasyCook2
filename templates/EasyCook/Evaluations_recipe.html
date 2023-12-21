@@ -1,0 +1,46 @@
+{% extends 'EasyCook/Base.html' %}
+{% block title %}Évaluations de la recette - {{ Descr_recipe.nom_recette }}{% endblock %}
+
+{% block content %}
+{% load i18n %}
+    <h2>{{ Descr_recipe.nom_recette }}</h2>
+    {% if Descr_recipe.ingredients %}
+        <h3>{% trans "Ingrédients" %} :</h3>
+        <ul>
+            {% for ingredient in Descr_recipe.ingredients %}
+                <li>{{ ingredient }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% if Descr_recipe.instructions %}
+        <h3>{% trans "Instructions :" %}</h3>
+        <ol>
+            {% for instruction in Descr_recipe.instructions %}
+                <li>{{ instruction }}</li>
+            {% endfor %}
+        </ol>
+    {% endif %}
+
+    {% if reviews %}
+        <ul>
+            {% for review in reviews %}
+                <li>
+                    <strong>{{ review.user }}</strong> - Note : {{ review.rating }}/5<br>
+                    {{ review.comment }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <h3>{% trans "Ajouter une évaluation :" %}</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <input type="submit" value="Ajouter l'évaluation">
+    </form>
+
+{% endblock %}
+
+

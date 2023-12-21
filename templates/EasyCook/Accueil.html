@@ -1,0 +1,99 @@
+{% extends 'EasyCook/Base.html' %}
+{% block title %}Accueil{% endblock %}
+{% block content %}
+{% load i18n %}
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+</head>
+
+<body>
+    <header class="py-5 bg-light border-bottom mb-4">
+        <div class="container">
+            <div class="text-center my-5">
+                <h1 class="fw-bolder animate__animated animate__bounceInDown" style="font-family: 'Arial', sans-serif;">Welcome to EasyCook!</h1>
+                <p class="lead mb-0">{% trans "Fini Marmiton. Place à un vrai site de cuisine, enfin!" %}</p>
+            </div>
+        </div>
+    </header>
+</body>
+
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card mb-4">
+                    <a href="#!"><img class="card-img-top" src="https://www.bfe.admin.ch/bfe/fr/home/efficacite/etiquettes-energie-et-exigences-efficacite/appareils-electromenagers/refrigerateurs-et-congelateurs/_jcr_content/par/image/image.imagespooler.jpg/1563192962662/kuehl_und_gefriergeraete_bild1.jpg" alt="..."></a>
+                    <div class="card-body">
+                        <h2 class="card-title">{% trans "Compléter mon frigo" %}</h2>
+                        <p class="card-text">{% trans "Avec cette fonctionnalié, nous vous proposons de selectionner les aliments que vous avez dans votre frigo. Après avoir réalisé cela, nous vous proposerons les recettes dans lesquelles vous pourrez retrouver vos aliments." %}</p>
+                         <a class="btn" style="background-color: #fd7e14; color: white;" href="{% url 'EasyCook:Fridge' %}">{% trans "Compléter mon frigo →" %} </a>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                    </div>
+                </div>
+            </div>
+            <!-- widgets-->
+            <div class="col-lg-4">
+                <div class="col-lg-20">
+                    <div class="card mb-4">
+                        <div class="card-header" style="background-color: #fd7e14; color: white;">{% trans "Top 1" %}</div>
+                        <div class="card-body">
+                            {% if popular_recipes %}
+                                {% with top_recipe=popular_recipes.0 %}
+                                    <div class="col mb-2 col-lg-20">
+                                        <div class="card h-100">
+                                            {% if top_recipe.image %}
+                                                <img class="card-img-top" src="{{ top_recipe.image.url }}" alt="{{ top_recipe.nom_recette }}">
+                                            {% else %}
+                                                <img class="card-img-top" src="https://cdn.vectorstock.com/i/preview-1x/50/20/no-photography-sign-image-vector-23665020.jpg" alt="Image non disponible">
+                                            {% endif %}
+                                            <div class="card-body p-2">
+                                                <div class="text-center">
+                                                    <h5 class="fw-bolder">{{ top_recipe.nom_recette }}</h5>
+                                                    {% if top_recipe.temps_preparation %}
+                                                        <h6 class="card-subtitle">{% trans "Temps de préparation : " %}{{ top_recipe.temps_preparation }} {% trans "minutes" %}</h6>
+                                                    {% endif %}
+                                                    {% if top_recipe.temps_cuisson %}
+                                                        <h6 class="card-subtitle">{% trans "Temps de cuisson :" %}{{ top_recipe.temps_cuisson }} {% trans "minutes" %} </h6>
+                                                    {% endif %}
+                                                    <span class="note">{{ top_recipe.popularite }}⭐</span>
+                                                </div>
+                                            </div>
+                                            <div class="card-footer p-2 pt-0 border-top-0 bg-transparent">
+                                                <div class="text-center" >
+                                                    <a class="btn" style="background-color: #fd7e14; color: white;" href="{% url 'EasyCook:Descr_recipe' nom_recette=top_recipe.nom_recette %}">{% trans "Voir la recette →" %}</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endwith %}
+                            {% else %}
+                                <p>{% trans "Aucune recette populaire disponible." %}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="language-selector" style="position: absolute; bottom: 25px; left: 10px;">
+        <form action="{% url 'EasyCook:switch_language' language_code='fr' %}" method="post">
+            {% csrf_token %}
+            <label for="language">{% trans "Choisir la langue:" %}</label>
+            <select name="language" id="language" onchange="this.form.submit()">
+                <option value="fr" {% if request.LANGUAGE_CODE == 'fr' %}selected{% endif %}>{% trans "French" %}</option>
+                <option value="en" {% if request.LANGUAGE_CODE == 'en' %}selected{% endif %}>{% trans "English" %}</option>
+            </select>
+        </form>
+    </div>
+
+</body>
+{% endblock %}

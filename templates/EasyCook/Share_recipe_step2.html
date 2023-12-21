@@ -1,0 +1,43 @@
+{% extends 'EasyCook/Base.html' %}
+{% block title %}Partager votre recette - Étape 2{% endblock %}
+{% load static %}
+{% block content %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{% trans "Confirmation" %}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.7.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container-fluid px-1 py-5 mx-auto">
+        <div class="row d-flex justify-content-center">
+            <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
+                <h1>{% trans "Merci d'avoir partagé votre recette !" %}</h1>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ instructions_form.nom_recette }}
+                    <!-- Champ caché pour nom_recette -->
+                    <input type="hidden" name="nom_recette" value="{{ instructions_form.nom_recette.value }}">
+                    <!-- Autres champs du formulaire -->
+                    {{ instructions_form.texte_instruction }}
+                    <input type="submit" value="Voir les recettes">
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+{% if messages %}
+  <div id="notification-container" class="position-fixed modal-fullscreen-lg-down end-0 p-3">
+    {% for message in messages %}
+      <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+{% endblock %}

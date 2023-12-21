@@ -1,0 +1,145 @@
+{% block title %}{{ Descr_recipe.nom_recette }}{% endblock %}
+{% load static %}
+{% block content %}
+{% load i18n %}
+<html>
+<head>
+    <link rel="stylesheet" href="{% static 'EasyCook/css.css' %}">
+
+    <title>{{ generatePdf.nom_recette }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        h3, h6 {
+            margin-bottom: 0;
+        }
+
+        .card-body {
+            padding: 10px;
+        }
+
+        .img-responsive {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .btn-primary {
+            color: #fff;
+            background-color: #007bff;
+            border-color: #007bff;
+            padding: 5px 10px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .box-title {
+            margin-top: 20px;
+        }
+
+        .table-product td {
+            font-weight: bold;
+        }
+
+        .table-product td, .table-product th {
+            border: 1px solid #dee2e6;
+            padding: 8px;
+            text-align: left;
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        ul li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h3 class="card-title">{{ Descr_recipe.nom_recette }}</h3>
+            <h6 class="card-subtitle">{% trans "Temps de préparation :"%} {{ Descr_recipe.temps_preparation }}{% trans " minutes"%}</h6>
+            <h6 class="card-subtitle">{% trans "Temps de cuisson : "%}{{ Descr_recipe.temps_cuisson }}{% trans " minutes"%}</h6>
+
+            {% if Descr_recipe.image %}
+                <div class="row">
+                    <div class="col-lg-5 col-md-5 col-sm-6">
+                        <div class="white-box text-center"><img src="{{ Descr_recipe.image.url  }}" class="img-responsive"></div>
+                    </div>
+                </div>
+            {% else %}
+                <img src="https://cdn.vectorstock.com/i/preview-1x/50/20/no-photography-sign-image-vector-23665020.jpg" alt="Image non disponible">
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h3 class="box-title mt-5">{% trans "Informations générales "%}</h3>
+            <div class="table-responsive">
+                <table class="table table-striped table-product">
+                    <tbody>
+                        <tr>
+                            <td>{% trans "Date de création"%}</td>
+                            <td>{{ Descr_recipe.date_creation }}</td>
+                        </tr>
+                        <tr>
+                            <td>{% trans "Ingrédients"%}</td>
+                            <td>
+                                <ul>
+                                    {% if Ingredients %}
+                                        <p>{% trans "Nombre d'ingrédients: " %}{{ Ingredients.count }}</p>
+                                        <ul>
+                                            {% for ingredient in Ingredients %}
+                                                <li style="color: black;">{{ ingredient.nom_ingredient }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% else %}
+                                        <p>{% trans "Aucun ingrédient disponible pour cette recette."%}</p>
+                                    {% endif %}
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h3 class="box-title mt-5">{% trans "Instructions de la recette"%}</h3>
+            {% if Descr_recipe.texte_instruction %}
+                <p>{{ Descr_recipe.texte_instruction }}</p>
+            {% else %}
+                <p>{% trans "Aucune instruction disponible."%}</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h3 class="box-title mt-1">{% trans "Informations"%}</h3>
+            {% if Descr_recipe.service %}
+                <p><strong>{% trans "Origine:"%}</strong> {{ Descr_recipe.service.origine }}</p>
+                <p><strong>{% trans "Type de service:"%}</strong> {{ Descr_recipe.service.nom_service }}</p>
+            {% else %}
+                <p><strong>{% trans "Origine:"%}</strong>{% trans " Non spécifiée "%}</p>
+                <p><strong>{% trans "Type de service:"%}</strong> {% trans "Non spécifié" %}</p>
+            {% endif %}
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
+
+{% endblock %}

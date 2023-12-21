@@ -1,0 +1,22 @@
+{% extends 'EasyCook/Base.html' %}
+{% block title %}What's in my fridge{% endblock %}
+{% block content %}
+{% load static %}
+{% load i18n %}
+<head>
+    <link rel="stylesheet" href="{% static '/EasyCook/checkbox_for_fridge.css' %}">
+</head>
+<h1>What's in my fridge</h1>
+
+<p>{% trans "Sélectionnez les ingrédients que vous possédez dans votre frigo : "%}</p>
+
+<form method="post" action="">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <p>{% trans "Nous allons trouver la recette la plus adaptée aux ingrédients que vous disposez" %}</p>
+  <button type="submit">{% trans "Enregistrer" %}</button>
+</form>
+
+
+
+{% endblock %}

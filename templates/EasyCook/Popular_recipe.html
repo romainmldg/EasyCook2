@@ -1,0 +1,104 @@
+{% extends 'EasyCook/Base.html' %}
+{% block title %}Popular_recipe{% endblock %}
+{% block content %}
+
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Recettes populaires</title>
+</head>
+    <section class="py-5">
+        <div class="container px-1 px-lg-5 mt-5">
+            <div class="container-fluid px-1 py-5 mx-auto">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-xl-6 col-lg-8 col-md-9 col-11 text-center">
+                        <h1 class="section-title">{% trans "Les Recettes populaires du moment" %}</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <form action="{% url 'EasyCook:Popular_recipe' %}" method="GET" style="max-width: 400px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 5px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+
+        <h1 class="form-title" style="width: 80%; margin: 0 auto; font-size: 1.25rem; font-weight: bold; text-align: center; margin-bottom: 40px;">
+            {% trans "Sélectionner votre recette" %}
+        </h1>
+
+        {{ form.origine }}
+        {{ form.nom_service }}
+
+        <input type="submit" class="btn btn-warning" style="width: 100%; background-color: #fd7e14; color: white; padding: 10px; border: none; border-radius: 3px; cursor: pointer;" value="{% trans 'Filtrer' %}">
+
+    </form>
+
+
+
+
+
+
+
+
+
+
+
+    <section class="py-5">
+            <div class="container px-1 px-lg-5 mt-5">
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                    {% for recipe in popular_recipes %}
+                        <div class="col mb-2 col-lg-2">
+                            <div class="card h-100">
+                                {% if recipe.image %}
+                                    <img class ="card-img-top" src="{{ recipe.image.url }}" alt="{{ recipe.nom_recette }}">
+                                {% else %}
+                                    <img class="card-img-top" src="https://cdn.vectorstock.com/i/preview-1x/50/20/no-photography-sign-image-vector-23665020.jpg" alt="Image non disponible">
+                                {% endif %}
+                                <div class="card-body p-2">
+                                    <div class="text-center">
+                                        <h5 class="fw-bolder">{{ recipe.nom_recette }}</h5>
+                                        {% if recipe.temps_preparation %}
+                                            <h6 class="card-subtitle">{% trans "Temps de préparation : " %}{{ recipe.temps_preparation }} {% trans " minutes" %}</h6>
+                                        {% endif %}
+                                        {% if recipe.temps_cuisson %}
+                                            <h6 class="card-subtitle">{% trans "Temps de cuisson : " %}{{ recipe.temps_cuisson }} {% trans " minutes" %}</h6>
+                                        {% endif %}
+					<span class="note">{{ recipe.popularite }}⭐</span>
+                                    </div>
+                                </div>
+                                <div class="card-footer p-2 pt-0 border-top-0 bg-transparent">
+                                    <div class="text-center">
+                                        <a class="btn btn-outline-dark mt-auto" href="{% url 'EasyCook:Descr_recipe' nom_recette=recipe.nom_recette %}">{% trans "Détails" %}</a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="pagination mt-4">
+                    <span class="step-links">
+                        {% if popular_recipes.has_previous %}
+                            <a href="?page=1">&laquo; first</a>
+                            <a href="?page={{ popular_recipes.previous_page_number }}">{% trans "previous" %}</a>
+                        {% endif %}
+
+                        <span class="current">
+                            Page {{ popular_recipes.number }} of {{ popular_recipes.paginator.num_pages }}.
+                        </span>
+
+                        {% if popular_recipes.has_next %}
+                            <a href="?page={{ popular_recipes.next_page_number }}">{% trans "next" %}</a>
+                            <a href="?page={{ popular_recipes.paginator.num_pages }}">last &raquo</a>
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+        </section>
+
+</body>
+</html>
+{% endblock %}

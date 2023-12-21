@@ -1,0 +1,13 @@
+{% load i18n %}
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <title>{% trans "Erreur 404" %}</title>
+</head>
+<body>
+  <h1>{% trans "Erreur 404" %}</h1>
+  <p>{% trans "Une erreur est survenue." %}</p>
+  <p><strong>{% trans "Vous avez mal saisi l'adresse du site EasyCook" %}</strong></p>
+  <p>{% trans "Ou peut-être que vous avez essayé de cuisiner quelque chose de trop compliqué ?" %}</p>
+  <p>{% trans "Vous pouvez revenir à l'accueil en cliquant " %}<a href="{% url 'EasyCook:Accueil' %}">{% trans "ici" %}</a>.</p>
+</body>
